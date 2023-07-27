@@ -62,7 +62,7 @@ func RunServer(addr string, register func(grpcServer *grpc.Server), auth func(to
 			md, ok := metadata.FromIncomingContext(ctx)
 			authToken := md.Get(AuthTokenKey)
 			if !ok || (len(authToken) < 1) || (len(authToken) > 0 && auth(authToken[0])) {
-				return resp, status.Error(codes.Unauthenticated, "unauthenticated")
+				return resp, status.Error(codes.Unauthenticated, "")
 			}
 
 			return handler(ctx, req)
